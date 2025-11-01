@@ -1,0 +1,26 @@
+#pragma once
+
+#define TIME_WINDOW 5000000
+
+#define MAX_BUFFER_SIZE 256
+#define INITIAL_ERROR 256
+#define FANOUT_BP 256
+#define AUTO_TUNE_RATE 0.1
+#define AUTO_TUNE_SIZE AUTO_TUNE_RATE * TIME_WINDOW
+#define TUNE
+
+// #define ERROR_THRESHOLD 64
+#define ERROR_THRESHOLD 128
+// #define ERROR_THRESHOLD 1024
+// #define PURE_QUERY_SIZE 80000000
+// #define PURE_QUERY_SIZE data.size()
+// #define PURE_QUERY_SIZE 30000000
+// #define EXPANSION_RATE 0.2
+#define EXPANSION_RATE 0.5
+// #define EXPANSION_RATE 1
+// #define PGM_BASE 256
+#define MAX_LAYER_SIZE 1<<16
+// #define MAX_LAYER_SIZE 1<<24
+// #define LM_BUFFER_SIZE 2
+// #define LM_BUFFER_SIZE 128
+#define LM_BUFFER_SIZE 64
