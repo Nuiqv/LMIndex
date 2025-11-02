@@ -36,6 +36,9 @@ const int SEED = 233;
 #define INSERT_ONLY_TEST 0
 #define UPDATE_TEST 0
 
+const int range_test_count = 10000;
+#define STABILITY_RANGE_SIZE 100
+
 using namespace std;
 
 class WorkLoad {
@@ -278,11 +281,10 @@ void lm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoad
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             vector<pair<K, K>> scan_result;
@@ -304,7 +306,7 @@ void lm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoad
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -345,7 +347,7 @@ void lm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoad
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 vector<pair<K, K>> scan_result;
@@ -471,11 +473,10 @@ void lm_gaps_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, Wor
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             vector<pair<K, K>> scan_result;
@@ -497,7 +498,7 @@ void lm_gaps_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, Wor
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -538,7 +539,7 @@ void lm_gaps_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, Wor
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 vector<pair<K, K>> scan_result;
@@ -665,11 +666,10 @@ void pgm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoa
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             vector<pair<K, K>> scan_result;
@@ -691,7 +691,7 @@ void pgm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoa
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -732,7 +732,7 @@ void pgm_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLoa
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 vector<pair<K, K>> scan_result;
@@ -855,11 +855,10 @@ void swix_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             auto search_tuple = make_tuple(data[begin_pos].first, K(0), data[end_pos].first);
@@ -882,7 +881,7 @@ void swix_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -923,7 +922,7 @@ void swix_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 auto search_tuple = make_tuple(data[begin_pos].first, K(0), data[end_pos].first);
@@ -1067,11 +1066,10 @@ void alex_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             vector<pair<K, K>> scan_result;
@@ -1093,7 +1091,7 @@ void alex_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -1134,7 +1132,7 @@ void alex_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkLo
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 vector<pair<K, K>> scan_result;
@@ -1281,11 +1279,10 @@ void btree_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkL
     cout << "\nstart range query..." << endl;
     std::mt19937 gen(TEST_SEED);
     std::uniform_int_distribution<uint64_t> distr(0, data.size() - 1);
-    int test_size = 1000;
     
     for(int i = 0, range_size = 1; i < 6; ++i) {
         int max_size = data.size() - range_size + 1;
-        for(int j = 0; j < test_size; ++j) {
+        for(int j = 0; j < range_test_count; ++j) {
             int begin_pos = distr(gen) % max_size;
             int end_pos = begin_pos + range_size - 1;
             vector<pair<K, K>> scan_result;
@@ -1307,7 +1304,7 @@ void btree_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkL
     int one_insert = insert_data.size() / insert_batch_times;
     {
         int base_size = data.size();
-        int test_size = 1000, range_size = STABILITY_RANGE_SIZE;
+        int range_size = STABILITY_RANGE_SIZE;
         std::mt19937 gen(TEST_SEED);
         std::uniform_int_distribution<uint64_t> distr(0, data.size() - range_size);
         data.resize(data.size() + insert_data.size());
@@ -1348,7 +1345,7 @@ void btree_test(vector<pair<K, K>> &data, vector<pair<K, K>> &insert_data, WorkL
             cout << tmp_label << ": " << stats.mean << endl;
             tmp_t.reset();
 
-            for(int j = 0; j < test_size; ++j) {
+            for(int j = 0; j < range_test_count; ++j) {
                 int begin_pos = distr(gen);
                 int end_pos = begin_pos + range_size - 1;
                 vector<pair<K, K>> scan_result;
